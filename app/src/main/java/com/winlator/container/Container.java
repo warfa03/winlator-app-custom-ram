@@ -47,6 +47,7 @@ public class Container {
     private String cpuListWoW64;
     private String desktopTheme = WineThemeManager.DEFAULT_DESKTOP_THEME;
     private String box64Preset = Box64Preset.DEFAULT;
+    private int ramLimitMb = 0;
     private File rootDir;
     private JSONObject extraData;
 
@@ -190,7 +191,13 @@ public class Container {
     public void setBox64Preset(String box64Preset) {
         this.box64Preset = box64Preset;
     }
+    public int getRamLimitMb() {
+        return ramLimitMb;
+    }
 
+    public void setRamLimitMb(int ramLimitMb) {
+        this.ramLimitMb = ramLimitMb;
+    }
     public File getRootDir() {
         return rootDir;
     }
@@ -302,6 +309,7 @@ public class Container {
             data.put("hudMode", hudMode);
             data.put("startupSelection", startupSelection);
             data.put("box64Preset", box64Preset);
+            data.put("ramLimitMb", ramLimitMb);
             data.put("desktopTheme", desktopTheme);
             data.put("extraData", extraData);
 
@@ -378,6 +386,9 @@ public class Container {
                     break;
                 case "box64Preset" :
                     setBox64Preset(data.getString(key));
+                    break;
+                case "ramLimitMb" :
+                    setRamLimitMb(data.getInt(key));
                     break;
                 case "audioDriver" :
                     setAudioDriver(data.getString(key));
