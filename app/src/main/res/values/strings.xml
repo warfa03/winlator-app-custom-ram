@@ -73,6 +73,8 @@
     <string name="offscreen_rendering_mode">Offscreen Rendering Mode</string>
     <string name="enable_strict_shader_math">Enable Strict Shader Math</string>
     <string name="video_memory_size">Video Memory Size</string>
+    <string name="ram_limit">RAM Limit</string>
+    <string name="unlimited">Unlimited</string>
     <string name="none">None</string>
     <string name="custom_text">Custom Text</string>
     <string name="icon">Icon</string>
