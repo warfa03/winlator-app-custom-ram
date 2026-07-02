@@ -166,6 +166,15 @@ public class ContainerDetailFragment extends Fragment {
         final Spinner sBox64Preset = view.findViewById(R.id.SBox64Preset);
         Box64PresetManager.loadSpinner(sBox64Preset, isEditMode() ? container.getBox64Preset() : preferences.getString("box64_preset", Box64Preset.DEFAULT));
 
+        final Spinner sRAMLimit = view.findViewById(R.id.SRAMLimit);
+        int currentRamLimitMb = isEditMode() ? container.getRamLimitMb() : 0;
+        if (currentRamLimitMb == 0) {
+            sRAMLimit.setSelection(0);
+        } else {
+            AppUtils.setSpinnerSelectionFromMemorySize(sRAMLimit, String.valueOf(currentRamLimitMb));
+        }
+
+
         final CPUListView cpuListView = view.findViewById(R.id.CPUListView);
         final CPUListView cpuListViewWoW64 = view.findViewById(R.id.CPUListViewWoW64);
 
@@ -199,6 +208,7 @@ public class ContainerDetailFragment extends Fragment {
                 String cpuListWoW64 = cpuListViewWoW64.getCheckedCPUListAsString();
                 byte startupSelection = (byte)sStartupSelection.getSelectedItemPosition();
                 String box64Preset = Box64PresetManager.getSpinnerSelectedId(sBox64Preset);
+                int ramLimitMb = sRAMLimit.getSelectedItemPosition() == 0 ? 0 : Integer.parseInt(StringUtils.parseMemorySize(sRAMLimit.getSelectedItem()));
                 String desktopTheme = getDesktopTheme(view);
 
                 if (isEditMode()) {
@@ -218,6 +228,7 @@ public class ContainerDetailFragment extends Fragment {
                     container.setHUDMode(hudMode);
                     container.setStartupSelection(startupSelection);
                     container.setBox64Preset(box64Preset);
+                    container.setRamLimitMb(ramLimitMb);
                     container.setDesktopTheme(desktopTheme);
                     container.saveData();
 
@@ -246,6 +257,7 @@ public class ContainerDetailFragment extends Fragment {
                     data.put("hudMode", hudMode);
                     data.put("startupSelection", startupSelection);
                     data.put("box64Preset", box64Preset);
+                    data.put("ramLimitMb", ramLimitMb);
                     data.put("desktopTheme", desktopTheme);
 
                     if (wineInfos.size() > 1) {
