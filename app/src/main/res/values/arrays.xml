@@ -48,6 +48,17 @@
         <item>8 GB</item>
         <item>12 GB</item>
     </string-array>
+    <string-array name="ram_limit_entries">
+        <item>@string/unlimited</item>
+        <item>512 MB</item>
+        <item>1 GB</item>
+        <item>2 GB</item>
+        <item>3 GB</item>
+        <item>4 GB</item>
+        <item>6 GB</item>
+        <item>8 GB</item>
+        <item>12 GB</item>
+    </string-array>
     <string-array name="image_cache_size_entries">
         <item>64 MB</item>
         <item>128 MB</item>
