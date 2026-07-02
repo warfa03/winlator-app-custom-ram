@@ -490,7 +490,24 @@
                         style="@style/FieldSetLabel"
                         android:text="@string/box64" />
                 </FrameLayout>
+        <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
 
+                    <LinearLayout style="@style/FieldSet">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ram_limit" />
+
+                        <Spinner
+                            style="@style/ComboBox"
+                            android:id="@+id/SRAMLimit"
+                            android:layout_width="match_parent"
+                            android:entries="@array/ram_limit_entries" />
+                    </LinearLayout>
+                </FrameLayout>
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
