@@ -28,6 +28,7 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
     private static int pid = -1;
     private EnvVars envVars;
     private String box64Preset = Box64Preset.CONSERVATIVE;
+    private int ramLimitMb = 0;
     private Callback<Integer> terminationCallback;
     private static final Object lock = new Object();
 
@@ -82,7 +83,9 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
     public void setBox64Preset(String box64Preset) {
         this.box64Preset = box64Preset;
     }
-
+    public void setRamLimitMb(int ramLimitMb) {
+        this.ramLimitMb = ramLimitMb;
+}
     private int execGuestProgram() {
         RootFS rootFS = environment.getRootFS();
         File rootDir = rootFS.getRootDir();
@@ -105,7 +108,15 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         File shmDir = new File(rootDir, "/tmp/shm");
         if (!shmDir.isDirectory()) shmDir.mkdirs();
 
-        String command = rootDir+"/usr/local/bin/box64 "+guestExecutable;
+        String box64Command = rootDir+"/usr/local/bin/box64 "+guestExecutable;
+
+        String command;
+        if (ramLimitMb > 0) {
+            long ramLimitKb = (long)ramLimitMb * 1024L;
+            command = "/system/bin/sh -c \"ulimit -v " + ramLimitKb + "; exec " + box64Command + "\"";
+        } else {
+            command = box64Command;
+        }
 
         return ProcessHelper.exec(command, envVars, rootDir, (status) -> {
             synchronized (lock) {
